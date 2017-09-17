@@ -1,0 +1,6 @@
+rootProject.name = 'springy-kotlin'
+include 'api'
+include 'data'
+include 'resty'
+rootProject.buildFileName = 'build.gradle.kts'
+

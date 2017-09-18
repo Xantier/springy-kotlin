@@ -25,12 +25,12 @@ class Handler(private val service: Service,
                     h4 { +"Hello HubSpot" }
                     p { +"" }
                     canvas {
-                        attributes["id"] = "canvas"
-                        attributes["style"] = "position:absolute; top:0; left:0;"
+                        id = "canvas"
+                        style = "position:absolute; top:0; left:0;"
                     }
                     div {
-                        attributes["id"] = "buffer"
-                        attributes["style"] = "display: none;"
+                        id = "buffer"
+                        style = "display: none;"
                     }
                     script(src = "/static/nonsense.js")
                 }
@@ -58,7 +58,7 @@ class Handler(private val service: Service,
                 body {
                     service.getLanguages().map {
                         div(classes = "container") {
-                            attributes["id"] = it.name
+                            id = it.name
                         }
                     }
                     script(src = "/static/oboe.min.js")
@@ -76,24 +76,14 @@ class Handler(private val service: Service,
             createHTML(true).html {
                 head {
                     title = "It's finally over"
+                    styleLink(url = "/static/photos.css")
                 }
                 body {
-                    div(classes = "container") {
-                        attributes["style"] = "width:100%; margin:0 auto;position:absolute; top:0; left:0;"
-                        img(src = "https://secure.meetupstatic.com/photos/member/d/8/3/8/member_163015352.jpeg") {
-                            attributes["style"] = "margin: 10px 0 0 45%;"
-                        }
-                    }
-                    div {
-                        attributes["id"] = "buffer"
-                        attributes["style"] = "display: none;"
-                    }
-                    canvas {
-                        attributes["id"] = "canvas"
-                        attributes["style"] = "float:left;"
+                    section {
+                        id = "photos"
                     }
                     script(src = "/static/oboe.min.js")
-                    script(src = "/static/nonsense.js")
+                    script(src = "/static/photos.js")
                 }
             }
         )

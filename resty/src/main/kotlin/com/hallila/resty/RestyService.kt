@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux
 
 
 interface RestyService {
-    fun getAttendees(): Flux<String>
+    fun getAttendees(): Flux<Photo>
 }
 
 internal class RestyServiceImpl : RestyService {
@@ -16,15 +16,19 @@ internal class RestyServiceImpl : RestyService {
     @Value("\${meetup_api_key}")
     private lateinit var key: String
 
-    override fun getAttendees(): Flux<String> {
-        val client = WebClient.create("https://api.meetup.com")
+    val eventKey: Int = 243009138
+
+    override fun getAttendees(): Flux<Photo> {
+
+        val client = WebClient.create("https://stream.meetup.com")
         return client.get()
-            .uri("/Dublin-Kotliners/events/243009138/rsvps")
+            .uri("/2/photos")
             .attribute("key", key)
-            .accept(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_OCTET_STREAM)
             .exchange()
-            .flatMapMany { response ->
-                response.bodyToFlux<String>()
+            .flatMapMany { it ->
+                it.bodyToFlux<Photo>()
             }
+            .log()
     }
 }

@@ -546,7 +546,6 @@ var textSet = [
 var textSetChangerIncrement = 0;
 var textSetChanger = function () {
   setTimeout(function () {
-    console.log(textSet[textSetChangerIncrement].text);
     textChanger(
       textSet[textSetChangerIncrement].text,
       textSet[textSetChangerIncrement].sphereRadius,
@@ -593,31 +592,7 @@ function startLoop() {
 }
 
 var start = function () {
-  if (document.head.title === 'It\'s finally over') {
-    setTimeout(() => {
-      oboe('/stream/resty')
-        .node("!", (response) => {
-          let i = 0;
-          const l = response.length;
-          setTimeout(() => {
-            (function iterator() {
-              document.querySelectorAll("img")[0].src = response[i].member.photo ? response[i].member.photo.photo_link : '';
-              if (++i < l) {
-                setTimeout(iterator, 2500);
-              }
-            })();
-          }, 2500);
-          textSet = response.map((it) => {
-            const photo = it.member.photo ? it.member.photo.photo_link : '';
-            const name = removeDiacritics(it.member.name.toUpperCase().replace(/\./g, "").split(" ")[0]);
-            return {text: name, sphereRadius: 140, sphereSpace: 80, unitTime: 100, time: 2500, photo: photo};
-          });
-          startLoop();
-        });
-    }, 2000);
-  } else {
-    startLoop();
-  }
+  startLoop();
 };
 document.body.onmousemove = function (e) {
   camera.rotate.x = e.pageY / window.innerHeight * 180 - 90;

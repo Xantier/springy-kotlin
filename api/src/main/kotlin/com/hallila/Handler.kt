@@ -34,7 +34,6 @@ class Handler(private val service: Service,
                     }
                     script(src = "/static/nonsense.js")
                 }
-
             }
         )
 
@@ -44,7 +43,6 @@ class Handler(private val service: Service,
 
     fun sayHallo(req: ServerRequest) =
         ok().json("Hello ${req.queryParam("name").orElse("Dubliners")}")
-
 
     fun streamingResponse(req: ServerRequest) =
         ok().contentType(MediaType.APPLICATION_STREAM_JSON).body(service.getLanguagesStream())
@@ -69,7 +67,7 @@ class Handler(private val service: Service,
 
 
     fun restyResponse(req: ServerRequest) =
-        ok().contentType(MediaType.APPLICATION_STREAM_JSON).body(restyService.getAttendees())
+        ok().contentType(MediaType.APPLICATION_STREAM_JSON).body(restyService.getPhotos())
 
     fun renderRestyView(req: ServerRequest) =
         ok().html(
@@ -87,4 +85,5 @@ class Handler(private val service: Service,
                 }
             }
         )
+
 }

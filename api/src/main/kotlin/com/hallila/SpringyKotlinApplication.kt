@@ -13,15 +13,15 @@ class SpringyKotlinApplication
 
 fun main(args: Array<String>) {
     val springApplication = SpringApplication(SpringyKotlinApplication::class.java)
-    springApplication.addInitializers(ApplicationContextInitializer<GenericApplicationContext> { ctx ->
-        beans {
-            bean {
-                Handler(ref(), ref())
-            }
-            bean { Routes.indexRouter(ref()) }
-            dataBeans()
-            restyBeans()
-        }.initialize(ctx)
-    })
+    springApplication
+        .addInitializers(
+            ApplicationContextInitializer<GenericApplicationContext> { ctx ->
+                beans {
+                    bean<Handler>()
+                    bean { Routes.indexRouter(ref()) }
+                    dataBeans()
+                    restyBeans()
+                }.initialize(ctx)
+            })
     springApplication.run(*args)
 }

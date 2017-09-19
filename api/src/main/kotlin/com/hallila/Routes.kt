@@ -5,8 +5,8 @@ import org.springframework.core.io.ClassPathResource
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.router
 
-
 object Routes : WithLogging() {
+
     fun indexRouter(handler: Handler) =
         router {
             "/view".nest {

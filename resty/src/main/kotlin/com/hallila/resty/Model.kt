@@ -1,5 +1,6 @@
 package com.hallila.resty
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)

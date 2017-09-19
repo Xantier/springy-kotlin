@@ -12,7 +12,6 @@ data class Language(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long? = null,
-
     val description: String? = null,
 
     @ElementCollection(fetch = FetchType.EAGER)

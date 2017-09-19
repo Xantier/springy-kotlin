@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux
 
 
 interface RestyService {
-    fun getAttendees(): Flux<Photo>
+    fun getPhotos(): Flux<Photo>
 }
 
 internal class RestyServiceImpl : RestyService {
@@ -18,8 +18,7 @@ internal class RestyServiceImpl : RestyService {
 
     val eventKey: Int = 243009138
 
-    override fun getAttendees(): Flux<Photo> {
-
+    override fun getPhotos(): Flux<Photo> {
         val client = WebClient.create("https://stream.meetup.com")
         return client.get()
             .uri("/2/photos")
@@ -30,5 +29,9 @@ internal class RestyServiceImpl : RestyService {
                 it.bodyToFlux<Photo>()
             }
             .log()
+            .filter{
+                it.photo_album.event.id == eventKey
+            }
+
     }
 }
